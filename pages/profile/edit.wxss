@@ -1,0 +1,169 @@
+/* pages/profile/edit.wxss */
+.container {
+  min-height: 100vh;
+  background-color: #f5f7fa;
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 导航栏 */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.nav-left {
+  padding: 8px;
+}
+
+.nav-icon {
+  font-size: 20px;
+  color: #374151;
+}
+
+.nav-title {
+  flex: 1;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.nav-right {
+  padding: 8px;
+}
+
+.save-btn {
+  color: #3b82f6;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+/* 主内容区 */
+.edit-content {
+  padding: 16px;
+}
+
+/* 通用部分 */
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.avatar-section, .info-section, .contact-section {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* 头像编辑 */
+.avatar-wrapper {
+  width: 80px;
+  height: 80px;
+  margin: 16px auto;
+  position: relative;
+  display: block;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.avatar-wrapper::after {
+  border: none;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(59, 130, 246, 0.8);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+/* 表单样式 */
+.form-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.form-item:last-child {
+  border-bottom: none;
+}
+
+.form-label {
+  width: 80px;
+  font-size: 15px;
+  color: #374151;
+}
+
+.form-input {
+  flex: 1;
+  height: 40px;
+  font-size: 15px;
+  color: #111827;
+}
+
+.form-picker {
+  flex: 1;
+}
+
+.picker-value {
+  height: 40px;
+  line-height: 40px;
+  font-size: 15px;
+  color: #111827;
+}
+
+/* 手机号绑定 */
+.phone-btn {
+  padding: 8px 20px;
+  font-size: 14px;
+  border-radius: 20px;
+  color: #ffffff;
+  background-color: #3b82f6;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.phone-btn::after {
+  border: none;
+}
+
+.phone-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+}
+
+.change-phone {
+  color: #3b82f6;
+  font-size: 14px;
+}

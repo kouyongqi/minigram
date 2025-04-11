@@ -1,0 +1,90 @@
+<!--index.wxml-->
+<view class="nav-bar">
+  <text class="nav-title">刷题助手</text>
+</view>
+
+<scroll-view class="main-content" scroll-y type="list" enhanced="true" bounces="true" show-scrollbar="false">
+  <!-- 用户信息卡片 -->
+  <view class="user-card">
+    <view class="user-info-header">
+      <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+      <view class="user-info-detail">
+        <view class="user-name-badge">
+          <text class="user-name">{{userInfo.nickName || '未登录'}}</text>
+          <text class="user-badge">高中</text>
+        </view>
+        <text class="user-study-days">已坚持学习 {{studyDays}} 天</text>
+      </view>
+      <view class="user-points">
+        <text>🔥</text>
+        <text class="points-value">{{points}}</text>
+      </view>
+    </view>
+    
+    <view class="user-stats">
+      <view class="stat-item">
+        <text class="stat-value">{{completedQuestions}}</text>
+        <text class="stat-label">已做题目</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{favoriteQuestions}}</text>
+        <text class="stat-label">收藏题目</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{correctRate}}%</text>
+        <text class="stat-label">正确率</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 学科分类 -->
+  <view class="section-title">学科分类</view>
+  <view class="subject-grid">
+    <view class="subject-card subject-1" bindtap="navigateToSubject" data-subject="1">
+      <view class="subject-title">科目一</view>
+      <view class="subject-meta">1259题 · 热门</view>
+    </view>
+    <view class="subject-card subject-2" bindtap="navigateToSubject" data-subject="2">
+      <view class="subject-title">科目二</view>
+      <view class="subject-meta">864题 · 进行中</view>
+    </view>
+  </view>
+
+  <!-- 学习统计 -->
+  <view class="stats-card">
+    <view class="stats-header">
+      <view class="stats-title">
+        <text class="stats-icon">📈</text>
+        <text>学习统计</text>
+      </view>
+    </view>
+    
+    <view class="stats-tabs">
+      <view class="stats-tab {{activeTab === 'week' ? 'active' : ''}}" bindtap="switchStatsTab" data-tab="week">本周</view>
+      <view class="stats-tab {{activeTab === 'month' ? 'active' : ''}}" bindtap="switchStatsTab" data-tab="month">本月</view>
+      <view class="stats-tab {{activeTab === 'total' ? 'active' : ''}}" bindtap="switchStatsTab" data-tab="total">总计</view>
+    </view>
+    
+    <view class="detailed-stats">
+      <view class="stat-block">
+        <text class="stat-block-value stat-blue">{{weeklyQuestions}}</text>
+        <text class="stat-block-label">已完成题目</text>
+      </view>
+      <view class="stat-block">
+        <text class="stat-block-value stat-green">{{studyHours}}<text class="unit">小时</text></text>
+        <text class="stat-block-label">学习时长</text>
+      </view>
+      <view class="stat-block">
+        <text class="stat-block-value stat-yellow">{{weeklyRate}}%</text>
+        <text class="stat-block-label">正确率</text>
+      </view>
+      <view class="stat-block">
+        <text class="stat-block-value stat-purple">{{streak}}</text>
+        <text class="stat-block-label">连续天数</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 底部安全区域占位 -->
+  <view class="safe-area-bottom"></view>
+</scroll-view>

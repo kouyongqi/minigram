@@ -1,0 +1,29 @@
+<!--pages/login/login.wxml-->
+<view class="container">
+  <!-- 登录内容区 -->
+  <view class="login-content">
+    <view class="logo-section">
+      <image class="app-logo" src="/images/logo.png" mode="aspectFit"></image>
+      <text class="app-name">刷题助手</text>
+    </view>
+
+    <view class="login-section">
+      <view class="login-tips">登录后可同步学习数据，参与排行榜</view>
+      
+      <!-- 微信登录按钮 -->
+      <button class="wechat-btn" bindtap="handleWechatLogin">
+        <text class="wechat-btn-icon">🔐</text> 微信一键登录
+      </button>
+
+      <view class="agreement">
+        <checkbox-group bindchange="handleAgreementChange">
+          <checkbox value="agree" checked="{{isAgree}}"/>
+          <text class="agreement-text">我已阅读并同意</text>
+          <text class="agreement-link" bindtap="showAgreement">《用户协议》</text>
+          <text class="agreement-text">和</text>
+          <text class="agreement-link" bindtap="showPrivacy">《隐私政策》</text>
+        </checkbox-group>
+      </view>
+    </view>
+  </view>
+</view> 
