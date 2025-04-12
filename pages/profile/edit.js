@@ -138,11 +138,11 @@ Page({
     const userGrade = this.data.grades[gradeIndex]
     
     // 保存到本地存储
-    wx.setStorageSync('userInfo', userInfo)
-    wx.setStorageSync('userGrade', userGrade)
-    wx.setStorageSync('userSchool', school)
-    wx.setStorageSync('userClass', className)
-    wx.setStorageSync('phoneNumber', phoneNumber)
+    // wx.setStorageSync('userInfo', userInfo)
+    // wx.setStorageSync('userGrade', userGrade)
+    // wx.setStorageSync('userSchool', school)
+    // wx.setStorageSync('userClass', className)
+    // wx.setStorageSync('phoneNumber', phoneNumber)
     
     // 同步到服务器
     wx.showLoading({
@@ -157,12 +157,13 @@ Page({
     
     // 调用API更新用户资料
     wx.request({
-      url: `http://localhost:8080/api/user/profile/${userId}`,
+      url: `http://192.168.1.3:8080/api/user/profile/${userId}`,
       method: 'PUT',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
       data: {
+        avatarUrl:userInfo.avatarUrl,
         nickName: userInfo.nickName,
         grade: userGrade,
         school: school,

@@ -59,43 +59,52 @@ Page({
   },
 
   /**
-   * 微信一键登录
-   */
-  handleWechatLogin() {
-    wx.login({
-      success: res => {
-        if (res.code) {
-          // 发送code到开发者服务器
-          wx.request({
-            url: 'http://localhost:3000/login',
-            method: 'POST',
-            data: {
-              code: res.code
-            },
-            success: (res) => {
-              if (res.data.status === 'success') {
-                // 登录成功，保存自定义登录态
-                wx.setStorageSync('token', res.data.token)
-                wx.showToast({
-                  title: '登录成功',
-                  icon: 'success'
-                })
-              }
-            },
-            fail: (err) => {
-              console.error('登录失败:', err)
-            }
-          })
-        } else {
-          console.error('登录失败:', res.errMsg)
-        }
-      },
-      fail(res){
-        // 这里打印发现微信账号登录错误
-       console.log(res);
-      }
+ * 跳转到登录页面
+ */
+  navigateToLogin() {
+    wx.navigateTo({
+      url: '../login/login'
     })
   },
+
+  // /**
+  //  * 微信一键登录
+  //  */
+  // handleWechatLogin() {
+  //   wx.login({
+  //     success: res => {
+  //       if (res.code) {
+  //         // 发送code到开发者服务器
+  //         wx.request({
+  //           url: 'http://localhost:3000/login',
+  //           method: 'POST',
+  //           data: {
+  //             code: res.code
+  //           },
+  //           success: (res) => {
+  //             if (res.data.status === 'success') {
+  //               // 登录成功，保存自定义登录态
+  //               wx.setStorageSync('token', res.data.token)
+  //               wx.showToast({
+  //                 title: '登录成功',
+  //                 icon: 'success'
+  //               })
+  //             }
+  //           },
+  //           fail: (err) => {
+  //             console.error('登录失败:', err)
+  //           }
+  //         })
+  //       } else {
+  //         console.error('登录失败:', res.errMsg)
+  //       }
+  //     },
+  //     fail(res){
+  //       // 这里打印发现微信账号登录错误
+  //      console.log(res);
+  //     }
+  //   })
+  // },
 
   onChooseAvatar(e)
   {
@@ -133,7 +142,7 @@ Page({
    */
   editProfile() {
     wx.navigateTo({
-      url: '/pages/profile/edit'
+      url: '../profile/edit'
     })
   },
   
@@ -166,8 +175,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    this.checkUserLoginInfo()
     // 获取最新的学习统计数据
     if (this.data.isLogin) {
+      this.getUserInfo() // 添加此行调用获取用户信息
       this.getLatestStats()
     }
   },
@@ -258,5 +269,81 @@ Page({
             console.log('已设置默认userId为1')
           }
         }
-  }
+  },
+
+  /**
+ * 获取用户信息
+ */
+getUserInfo() {
+  // 获取用户ID
+  const userId = wx.getStorageSync('userId') || '1'
+  
+  // 显示加载状态
+  wx.showLoading({
+    title: '加载中...',
+    mask: false
+  })
+  
+  // 设置API基础URL - 根据环境配置
+  const apiBaseUrl = 'http://192.168.1.3:8080' // 本地开发环境
+  
+  console.log('正在获取用户信息...')
+  
+  // 调用后端接口获取用户信息
+  wx.request({
+    url: `${apiBaseUrl}/api/user/profile/${userId}`,
+    method: 'GET',
+    header: {
+      'content-type': 'application/json',
+      'Authorization': wx.getStorageSync('token') || '' // 添加授权头
+    },
+    success: (res) => {
+      console.log('获取用户信息成功:', res)
+      wx.hideLoading()
+      
+      if (res.statusCode === 200 && res.data) {
+        // 更新用户信息
+        const userInfo = {
+          avatarUrl: res.data.avatarUrl || defaultAvatarUrl,
+          nickName: res.data.nickName || '未知用户'
+        }
+        
+        // 更新页面数据
+        this.setData({
+          isLogin: true,
+          userInfo: userInfo,
+          userGrade: res.data.grade || '',
+          userSchool: res.data.school || '',
+          userClass: res.data.className || '',
+          streak: res.data.streak || 0,
+          points: res.data.points || 0,
+          ranking: res.data.ranking || 0
+        })
+        
+        // 保存到本地存储
+        wx.setStorageSync('userInfo', userInfo)
+        wx.setStorageSync('userGrade', res.data.grade || '')
+        wx.setStorageSync('userSchool', res.data.school || '')
+        wx.setStorageSync('userClass', res.data.className || '')
+      } else {
+        console.error('获取用户信息失败:', res)
+      }
+    },
+    fail: (err) => {
+      console.error('请求失败:', err)
+      wx.hideLoading()
+      
+      // 显示错误提示
+      wx.showToast({
+        title: '获取信息失败',
+        icon: 'none',
+        duration: 2000
+      })
+    },
+    complete: () => {
+      // 确保loading被关闭
+      setTimeout(() => wx.hideLoading(), 200)
+    }
+  })
+}
 })
