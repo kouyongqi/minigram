@@ -1,0 +1,334 @@
+/* pages/questionOne/questionOne.wxss */
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f7fa;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  /* 适配顶部安全区域 */
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+}
+
+/* 状态栏 */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 12px;
+  background-color: #ffffff;
+  font-size: 12px;
+  border-bottom: 1px solid #f0f0f0;
+  height: 44px; /* iPhone 15 Pro Max 状态栏更高 */
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+  box-sizing: content-box;
+}
+
+.status-time {
+  font-weight: 500;
+}
+
+.status-icons {
+  display: flex;
+  gap: 8px;
+}
+
+
+/* 导航栏 */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 16rpx;
+  height: 44px;
+  background: #ffffff;
+  position: relative;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.nav-left {
+  padding: 8rpx;
+}
+
+.nav-back-icon {
+  font-size: 40rpx;
+  font-weight: bold;
+}
+
+.nav-title {
+  font-size: 34rpx;
+  font-weight: 500;
+  text-align: center;
+  flex: 1;
+}
+
+.nav-right {
+  padding: 8rpx;
+}
+
+.nav-icon {
+  font-size: 36rpx;
+}
+
+/* 主内容区 */
+.main-content {
+  position: fixed;
+  top: 88px; /* 状态栏+导航栏高度 */
+  bottom: 50px; /* 底部标签栏高度 */
+  left: 0;
+  right: 0;
+  background: #f6f6f6;
+  padding: 8rpx;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  z-index: 1;
+}
+
+/* 搜索框 */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  padding: 16rpx 24rpx;
+  border-radius: 16rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+.search-icon {
+  margin-right: 16rpx;
+  color: #999;
+}
+
+/* 题型筛选 */
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
+}
+
+.filter-tag {
+  padding: 12rpx 24rpx;
+  background: #ffffff;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  color: #666;
+  border: 1rpx solid #e6e6e6;
+}
+
+.filter-tag.active {
+  background: #3878ff;
+  color: #fff;
+  border-color: #3878ff;
+}
+
+/* 题目卡片 */
+.question-card {
+  background: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16rpx;
+}
+
+.question-badges {
+  display: flex;
+  gap: 12rpx;
+}
+
+.badge {
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  font-size: 20rpx;
+}
+
+.badge-primary {
+  background: #e6f0ff;
+  color: #3878ff;
+}
+
+.badge-secondary {
+  background: #e6f5ff;
+  color: #28a7e1;
+}
+
+.badge-warning {
+  background: #fff3e6;
+  color: #ff9500;
+}
+
+.bookmark-btn {
+  font-size: 40rpx;
+  color: #d1d1d1;
+}
+
+.bookmark-active {
+  color: #ffcc00;
+}
+
+.question-content {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.5;
+  margin-bottom: 24rpx;
+}
+
+.question-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.question-stats {
+  display: flex;
+  gap: 16rpx;
+  font-size: 22rpx;
+  color: #999;
+}
+
+.practice-btn {
+  font-size: 24rpx;
+  color: #ffffff;
+  background: #3878ff;
+  padding: 6rpx 24rpx;
+  border-radius: 30rpx;
+  border: none;
+  line-height: 1.5;
+}
+
+/* 模拟考试部分 */
+.mock-exam-section {
+  background: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  margin-bottom: 24rpx;
+}
+
+.mock-exam-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.mock-exam-item {
+  display: flex;
+  align-items: center;
+}
+
+.mock-exam-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+  font-size: 36rpx;
+}
+
+.mock-blue {
+  background: #e6f0ff;
+  color: #3878ff;
+}
+
+.mock-green {
+  background: #e6f8f0;
+  color: #2cc17e;
+}
+
+.mock-exam-info {
+  flex: 1;
+}
+
+.mock-exam-name {
+  font-size: 28rpx;
+  font-weight: 500;
+  margin-bottom: 4rpx;
+}
+
+.mock-exam-meta {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.mock-exam-btn {
+  font-size: 24rpx;
+  color: #ffffff;
+  background: #3878ff;
+  padding: 6rpx 24rpx;
+  border-radius: 30rpx;
+  border: none;
+  line-height: 1.5;
+}
+
+/* 底部标签栏 */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: #ffffff;
+  border-top: 1rpx solid #f0f0f0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 100%;
+  color: #999;
+}
+
+.tab-item.active {
+  color: #3878ff;
+}
+
+.tab-icon {
+  font-size: 44rpx;
+  line-height: 1;
+}
+
+.tab-text {
+  font-size: 20rpx;
+  margin-top: 4rpx;
+}
+
+/* 底部安全区域 */
+.safe-area-bottom {
+  height: 34rpx;
+}
+
+/* 适配iPhone 刘海屏 */
+@media screen and (padding: env(safe-area-inset-bottom)) {
+  .tab-bar {
+    padding-bottom: env(safe-area-inset-bottom);
+    height: calc(50px + env(safe-area-inset-bottom));
+  }
+  
+  .main-content {
+    bottom: calc(50px + env(safe-area-inset-bottom));
+  }
+} 

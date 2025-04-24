@@ -1,0 +1,173 @@
+<!--pages/questionDetail/questionDetail.wxml-->
+
+<!-- 导航栏 -->
+<view class="nav-bar">
+  <view class="nav-left" bindtap="goBack">
+    <text class="nav-back-icon">←</text>
+  </view>
+  <text class="nav-title">题目详情</text>
+  <view class="nav-right">
+    <text class="nav-icon">⚙️</text>
+  </view>
+</view>
+
+<!-- 主内容区 -->
+<scroll-view class="main-content" scroll-y type="list" enhanced="true" bounces="true" show-scrollbar="false">
+  <!-- 题目进度 -->
+  <view class="progress-bar">
+    <view class="question-count">
+      <text class="current-question">{{currentQuestion}}</text>/{{totalQuestions}}
+    </view>
+    <view class="navigation-buttons">
+      <view class="nav-button prev" bindtap="prevQuestion">
+        <text>←</text>
+      </view>
+      <view class="nav-button next" bindtap="nextQuestion">
+        <text>→</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 题目卡片 -->
+  <view class="question-card">
+    <!-- 题目信息 -->
+    <view class="question-header">
+      <view class="question-badges">
+        <text class="badge primary">{{question.type}}</text>
+        <text class="badge secondary">{{question.difficulty}}</text>
+      </view>
+      <view class="action-buttons">
+        <view class="action-button" bindtap="toggleBookmark">
+          <text>{{isBookmarked ? '★' : '☆'}}</text>
+        </view>
+        <view class="action-button" bindtap="reportQuestion">
+          <text>🚩</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 题目内容 -->
+    <view class="question-content">
+      <text>{{question.content}}</text>
+      <view wx:if="{{question.image}}" class="question-image-container">
+        <image src="{{question.image}}" mode="widthFix" class="question-image"></image>
+        <text class="image-caption">{{question.imageCaption || ''}}</text>
+      </view>
+    </view>
+    
+    <!-- 选项 -->
+    <view class="options-list">
+      <view wx:for="{{question.options}}" wx:key="index" class="option {{selectedOption === item.key ? 'selected' : ''}}" 
+           bindtap="selectOption" data-option="{{item.key}}">
+        <view class="option-key {{selectedOption === item.key ? 'selected' : ''}}">
+          {{item.key}}
+        </view>
+        <view class="option-content">{{item.value}}</view>
+      </view>
+    </view>
+    
+    <!-- 操作按钮 -->
+    <view class="submit-button-container">
+      <button class="submit-button" bindtap="submitAnswer" wx:if="{{!showAnswer}}">提交</button>
+    </view>
+  </view>
+  
+  <!-- 正确答案和解析（默认隐藏，提交后显示） -->
+  <view class="answer-section" wx:if="{{showAnswer}}">
+    <view class="section-header">
+      <text class="section-icon">✓</text>
+      <text class="section-title">答案与解析</text>
+    </view>
+    <view class="correct-answer">
+      <text class="label">正确答案:</text>
+      <text class="answer-key">{{question.correctAnswer}}</text>
+    </view>
+    <view class="answer-value">
+      <text>{{question.correctAnswerValue}}</text>
+    </view>
+    <view class="explanation-section">
+      <text class="label">解析:</text>
+      <view class="explanation-content">
+        <text wx:for="{{question.explanation}}" wx:key="index">{{item}}</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 统计信息 -->
+  <view class="stats-section">
+    <view class="stat-item">
+      <text class="stat-icon">👁️</text>
+      <text class="stat-value">{{question.viewCount}}人已做</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-icon">📊</text>
+      <text class="stat-value">正确率: {{question.correctRate}}%</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-icon">⏱️</text>
+      <text class="stat-value">平均用时: {{question.avgTime}}</text>
+    </view>
+  </view>
+  
+  <!-- 讨论区 -->
+  <view class="discussion-section">
+    <view class="section-header">
+      <text class="section-title">讨论区 ({{question.commentCount}}条)</text>
+      <view class="add-comment" bindtap="addComment">
+        <text>+</text> 添加
+      </view>
+    </view>
+    
+    <view class="comments-list">
+      <view wx:for="{{question.comments}}" wx:key="index" class="comment-item">
+        <view class="user-avatar">
+          <image src="{{item.userAvatar}}" mode="aspectFill"></image>
+        </view>
+        <view class="comment-content">
+          <view class="comment-header">
+            <text class="user-name">{{item.userName}}</text>
+            <text class="comment-time">{{item.timeAgo}}</text>
+          </view>
+          <text class="comment-text">{{item.content}}</text>
+          <view class="comment-actions">
+            <view class="action-item" bindtap="likeComment" data-id="{{item.id}}">
+              <text class="action-icon">👍</text>
+              <text class="action-count">{{item.likeCount}}</text>
+            </view>
+            <view class="action-item" bindtap="replyComment" data-id="{{item.id}}">
+              <text class="action-icon">💬</text>
+              <text>回复</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="view-more" bindtap="viewMoreComments">
+      查看更多讨论 ▼
+    </view>
+  </view>
+
+  <!-- 底部安全区域占位 -->
+  <view class="safe-area-bottom"></view>
+</scroll-view>
+
+<!-- 底部操作栏 -->
+<view class="tab-bar">
+  <view class="tab-item" bindtap="toggleBookmark">
+    <text class="tab-icon">{{isBookmarked ? '★' : '☆'}}</text>
+    <text class="tab-text">收藏</text>
+  </view>
+  <view class="tab-item" bindtap="viewComments">
+    <text class="tab-icon">💬</text>
+    <text class="tab-text">讨论</text>
+  </view>
+  <view class="tab-item" bindtap="shareQuestion">
+    <text class="tab-icon">📤</text>
+    <text class="tab-text">分享</text>
+  </view>
+  <view class="tab-item next-btn" bindtap="nextQuestion">
+    <text class="tab-text">下一题</text>
+    <text class="tab-icon">→</text>
+  </view>
+</view>

@@ -285,7 +285,7 @@ getUserInfo() {
   })
   
   // 设置API基础URL - 根据环境配置
-  const apiBaseUrl = 'http://192.168.1.3:8080' // 本地开发环境
+  const apiBaseUrl = 'http://localhost:8080' // 本地开发环境
   
   console.log('正在获取用户信息...')
   

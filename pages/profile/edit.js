@@ -157,7 +157,7 @@ Page({
     
     // 调用API更新用户资料
     wx.request({
-      url: `http://192.168.1.3:8080/api/user/profile/${userId}`,
+      url: `http://localhost:8080/api/user/profile/${userId}`,
       method: 'PUT',
       header: {
         'content-type': 'application/x-www-form-urlencoded'

@@ -1,0 +1,179 @@
+<!-- pages/questionOne/questionOne.wxml -->
+
+<!-- 导航栏 -->
+<view class="nav-bar">
+  <view class="nav-left" bindtap="goBack">
+    <text class="nav-back-icon">←</text>
+  </view>
+  <text class="nav-title">高校教育 - 科目一</text>
+  <view class="nav-right">
+    <text class="nav-icon">⚙️</text>
+  </view>
+</view>
+
+<!-- 主内容区 -->
+<scroll-view class="main-content" scroll-y type="list" enhanced="true" bounces="true" show-scrollbar="false">
+  <!-- 搜索框 -->
+  <view class="search-box">
+    <text class="search-icon">🔍</text>
+    <input type="text" placeholder="搜索题目、知识点" bindinput="onSearch" confirm-type="search"/>
+  </view>
+
+  <!-- 题型筛选 -->
+  <view class="filter-tags">
+    <view class="filter-tag {{currentFilter === 'all' ? 'active' : ''}}" bindtap="filterQuestions" data-type="all">全部</view>
+    <view class="filter-tag {{currentFilter === 'single' ? 'active' : ''}}" bindtap="filterQuestions" data-type="single">单选题</view>
+    <view class="filter-tag {{currentFilter === 'multiple' ? 'active' : ''}}" bindtap="filterQuestions" data-type="multiple">多选题</view>
+    <view class="filter-tag {{currentFilter === 'judge' ? 'active' : ''}}" bindtap="filterQuestions" data-type="judge">判断题</view>
+    <view class="filter-tag {{currentFilter === 'fill' ? 'active' : ''}}" bindtap="filterQuestions" data-type="fill">填空题</view>
+  </view>
+
+  <!-- 题目列表 -->
+  <view class="question-list">
+    <!-- 单选题 -->
+    <view class="question-card" wx:if="{{currentFilter === 'all' || currentFilter === 'single'}}">
+      <view class="question-header">
+        <view class="question-badges">
+          <text class="badge badge-primary">单选题</text>
+          <text class="badge badge-secondary">中等</text>
+        </view>
+        <view class="bookmark-btn" bindtap="toggleBookmark" data-id="1">
+          <text class="{{isBookmarked[1] ? 'bookmark-active' : ''}}">{{isBookmarked[1] ? '★' : '☆'}}</text>
+        </view>
+      </view>
+      <view class="question-content">
+        <text>高等教育学是研究什么的学科？</text>
+      </view>
+      <view class="question-footer">
+        <view class="question-stats">
+          <text class="stat-item">👁️ 1652</text>
+          <text class="stat-item">👍 238</text>
+          <text class="stat-item">📊 正确率 76%</text>
+        </view>
+        <button class="practice-btn" bindtap="goToQuestion" data-id="1">做题</button>
+      </view>
+    </view>
+
+    <!-- 多选题 -->
+    <view class="question-card" wx:if="{{currentFilter === 'all' || currentFilter === 'multiple'}}">
+      <view class="question-header">
+        <view class="question-badges">
+          <text class="badge badge-primary">多选题</text>
+          <text class="badge badge-warning">较难</text>
+        </view>
+        <view class="bookmark-btn" bindtap="toggleBookmark" data-id="2">
+          <text class="{{isBookmarked[2] ? 'bookmark-active' : ''}}">{{isBookmarked[2] ? '★' : '☆'}}</text>
+        </view>
+      </view>
+      <view class="question-content">
+        <text>现代高等教育的基本职能包括哪些？</text>
+      </view>
+      <view class="question-footer">
+        <view class="question-stats">
+          <text class="stat-item">👁️ 986</text>
+          <text class="stat-item">👍 156</text>
+          <text class="stat-item">📊 正确率 48%</text>
+        </view>
+        <button class="practice-btn" bindtap="goToQuestion" data-id="2">做题</button>
+      </view>
+    </view>
+
+    <!-- 判断题 -->
+    <view class="question-card" wx:if="{{currentFilter === 'all' || currentFilter === 'judge'}}">
+      <view class="question-header">
+        <view class="question-badges">
+          <text class="badge badge-primary">判断题</text>
+          <text class="badge badge-secondary">简单</text>
+        </view>
+        <view class="bookmark-btn" bindtap="toggleBookmark" data-id="3">
+          <text class="{{isBookmarked[3] ? 'bookmark-active' : ''}}">{{isBookmarked[3] ? '★' : '☆'}}</text>
+        </view>
+      </view>
+      <view class="question-content">
+        <text>教育部是中国高等教育的最高行政管理机构。</text>
+      </view>
+      <view class="question-footer">
+        <view class="question-stats">
+          <text class="stat-item">👁️ 2145</text>
+          <text class="stat-item">👍 342</text>
+          <text class="stat-item">📊 正确率 92%</text>
+        </view>
+        <button class="practice-btn" bindtap="goToQuestion" data-id="3">做题</button>
+      </view>
+    </view>
+
+    <!-- 填空题 -->
+    <view class="question-card" wx:if="{{currentFilter === 'all' || currentFilter === 'fill'}}">
+      <view class="question-header">
+        <view class="question-badges">
+          <text class="badge badge-primary">填空题</text>
+          <text class="badge badge-warning">较难</text>
+        </view>
+        <view class="bookmark-btn" bindtap="toggleBookmark" data-id="4">
+          <text class="{{isBookmarked[4] ? 'bookmark-active' : ''}}">{{isBookmarked[4] ? '★' : '☆'}}</text>
+        </view>
+      </view>
+      <view class="question-content">
+        <text>中国第一所现代大学是______，创建于______年。</text>
+      </view>
+      <view class="question-footer">
+        <view class="question-stats">
+          <text class="stat-item">👁️ 876</text>
+          <text class="stat-item">👍 124</text>
+          <text class="stat-item">📊 正确率 42%</text>
+        </view>
+        <button class="practice-btn" bindtap="goToQuestion" data-id="4">做题</button>
+      </view>
+    </view>
+
+    <!-- 单选题2 -->
+    <view class="question-card" wx:if="{{currentFilter === 'all' || currentFilter === 'single'}}">
+      <view class="question-header">
+        <view class="question-badges">
+          <text class="badge badge-primary">单选题</text>
+          <text class="badge badge-secondary">中等</text>
+        </view>
+        <view class="bookmark-btn" bindtap="toggleBookmark" data-id="5">
+          <text class="{{isBookmarked[5] ? 'bookmark-active' : ''}}">{{isBookmarked[5] ? '★' : '☆'}}</text>
+        </view>
+      </view>
+      <view class="question-content">
+        <text>下列哪种教学方法不属于现代教学方法？</text>
+      </view>
+      <view class="question-footer">
+        <view class="question-stats">
+          <text class="stat-item">👁️ 1452</text>
+          <text class="stat-item">👍 214</text>
+          <text class="stat-item">📊 正确率 63%</text>
+        </view>
+        <button class="practice-btn" bindtap="goToQuestion" data-id="5">做题</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 推荐模拟考试 -->
+  <view class="mock-exam-section">
+    <view class="section-title">模拟考试</view>
+    <view class="mock-exam-list">
+      <view class="mock-exam-item">
+        <view class="mock-exam-icon mock-blue">📝</view>
+        <view class="mock-exam-info">
+          <view class="mock-exam-name">科目一模拟考试</view>
+          <view class="mock-exam-meta">100题 · 10253人已做</view>
+        </view>
+        <button class="mock-exam-btn" bindtap="goToMockExam" data-id="1">开始</button>
+      </view>
+      <view class="mock-exam-item">
+        <view class="mock-exam-icon mock-green">🎯</view>
+        <view class="mock-exam-info">
+          <view class="mock-exam-name">高校教育专项测试</view>
+          <view class="mock-exam-meta">80题 · 8426人已做</view>
+        </view>
+        <button class="mock-exam-btn" bindtap="goToMockExam" data-id="2">开始</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部安全区域占位 -->
+  <view class="safe-area-bottom"></view>
+</scroll-view>

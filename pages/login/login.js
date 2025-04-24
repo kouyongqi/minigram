@@ -85,7 +85,7 @@ Page({
         if (res.code) {
           // 发送code到开发者服务器
           wx.request({
-            url: 'http://192.168.1.3:3000/login',
+            url: 'http://localhost:3000/login',
             method: 'POST',
             data: {
               code: res.code

@@ -84,12 +84,25 @@ Page({
     })
   },
   
-  // 进入科目详情
-  navigateToSubject(e) {
+  /**
+   * 跳转到科目详情
+   */
+  navigateToSubject: function(e) {
     const subject = e.currentTarget.dataset.subject
-    wx.navigateTo({
-      url: `../subject/detail?id=${subject}`
-    })
+    console.log('跳转到科目', subject)
+    
+    if (subject === '1') {
+      // 切换到题库标签页
+      wx.switchTab({
+        url: '/pages/questionOne/questionOne'
+      })
+    } else {
+      wx.showToast({
+        title: '敬请期待',
+        icon: 'none',
+        duration: 1500
+      })
+    }
   },
   
   // 切换学习统计标签
